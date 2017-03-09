@@ -1,19 +1,19 @@
-colorBlocks.controller('GameController', function() {
+colorBlocks.controller('GameController', ['DataFactory', function(DataFactory) {
 
 console.log('game controller running');
 
 var self = this;
-self.colors = DataFactory.colors
+self.colors = DataFactory.colors;
 
 // start game
 
 
 // resets game to the starting state
-self.init() {
+self.init = function(){
   self.messageText = "";
   self.currentColor = self.colors[randomNumber(0, self.colors.length - 1)];
   self.colorPrompt = 'Can you find the ' + self.currentColor + ' block?'
-}
+};
 
 self.init();
 
@@ -21,7 +21,7 @@ self.init();
 self.handleInput = function(clickedColor) {
   if(clickedColor === self.currentColor) {
     alert('You got it!\n\nNow try another!');
-    DataFactory.updateColors();
+    self.init();
   } else {
     self.messageText = 'Oh no! You guessed wrong!';
   }
@@ -31,4 +31,4 @@ self.handleInput = function(clickedColor) {
 function randomNumber(min, max){
     return Math.floor(Math.random() * (1 + max - min) + min);
 }
-});
+}]);
